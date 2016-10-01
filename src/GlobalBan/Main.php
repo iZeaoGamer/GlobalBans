@@ -7,10 +7,9 @@ use pocketmine\event\player\PlayerPreLoginEvent;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\CommandExecutor;
-use pocketmine\Player;
-use pocketmine\Server;
 use pocketmine\utils\Utils;
 use pocketmine\utils\Config;
+use pocketmine\Player;
 use pocketmine\scheduler\CallbackTask;
     
 class Main extends PluginBase implements Listener{
@@ -40,6 +39,7 @@ class Main extends PluginBase implements Listener{
                 $this->getLogger()->notice($this->getMessage("Connected to the GlobalBan Database","グローバルBANデータベースに接続しました"));
                 $this->getLogger()->alert($this->getMessage("Enabled GlobalBan Plugin but the GlobalBan Database is not Running","GlobalBan プラグインは有効になりましたが、データベースは稼働していません"));
                 $this->getLogger()->info($this->getMessage("Recieved the Database Message:","データベースからメッセージを受信しました:")."\n§e".$database->{'message'});
+                $this->getServer()->getPluginManager()->disablePlugin($this->getServer()->getPluginManager()->getPlugin("GlobalBans"));
             }
         }
         $this->logo = "§a[GlobalBan] §f";
@@ -150,6 +150,88 @@ class Main extends PluginBase implements Listener{
                             }
                         }
                     break;
+                        
+                    /*
+                    case "rid":
+                        if(empty($args[1])){
+                            $sender->sendMessage($this->getMessage("§9> §e/gban <Rid> <Player Name/RawUniqueId> <Description>","§9> §e/gban <Rid> <プレイヤー名/RawUniqueID> <BANの説明>"));
+                        }else{
+                            if(empty($args[2])){
+                                $args[2] = "No Description";
+                            }
+                            
+                            if(is_null($this->getServer()->getPlayer($args[1]))){
+                                    $name = $args[1];
+                                    array_shift($args);
+                                    array_shift($args);
+                                    Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "rid","value" => $name,"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                    $datum = strtolower($name);
+                            }else{
+                                $name = $args[1];
+                                array_shift($args);
+                                array_shift($args);
+                                Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "rid","value" => $this->getServer()->getPlayer($name)->getRawUniqueId(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                $datum = $this->getServer()->getPlayer($name)->getRawUniqueId();
+                                $this->getServer()->getPlayer($name)->kick($this->config->get("BanMessage"),false);
+                            }
+                            $sender->sendMessage($this->logo.$this->getMessage("§9> §dClient Ban Data has been posted","§9> §dRawUniqueID Banのデータが送信されました"));
+                            $this->getLogger()->notice($this->getMessage("§9> §bClient Ban Data Has Been Posted. Posted Client ID:","§9> §bRawUniqueID BANデータが送信されました。 送信されたID:").$datum);
+                        }
+                    break;
+                    */
+                    
+                    /*
+                    case "chat":
+                        if(empty($args[2])){
+                            $sender->sendMessage($this->getMessage("§9> §e/gban <Chat> <Server ID> <Message>","§9> §e/gban <Chat> <サーバーID> <メッセージ>"));
+                        }else{
+                            $chat = json_decode(file_get_contents("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=servercheck&serverid=".$args[1]."&license=".$this->getLicense()));
+                            $servid = $args[1];
+                            array_shift($args);
+                            array_shift($args);
+                            if($sender instanceof Player){
+                                $sender->sendMessage($this->getMessage("§9> §dThis Command Can Use On Console Only","§9> §dこのコマンドはコンソール専用になっています"));
+                                return;
+                            }
+                            if($chat->{'settings'} == false){
+                                $sender->sendMessage($this->getMessage("§9> §dChat Partner Selecting to Rejecting Mode, So Message Couldn't Send","§9> §dチャット相手は拒否モードにしているためチャットを送信できませんでした"));
+                                return;
+                            }
+                     
+                            if($chat->{'active'} == true){
+                                if($chat->{'status'} == true){
+                                    Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=chat&serverid=".$servid."&license=".$this->getLicense(), ["type" => "cid","value" => $name,"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                    $sender->sendMessage($this->getMessage("§9> §aChat Sent Successful","§9> §aチャットが送信されました"));
+                                }else{
+                                    $sender->sendMessage($this->getMessage("§9> §aChat Couldn't Send, Because Partner Is Not Online Now","§9> §aチャット相手はオンラインではないため、送信できませんでした"));
+                                }
+                            }else{
+                                $sender->sendMessage($this->getMessage("§9> §dThat Server ID Is Not Registered Yet","§9> §dそのサーバーIDは未登録です"));
+                            }
+                        }
+                    break;
+                    */
+                    
+                    /*
+                    case "server":
+                        if(empty($args[1])){
+                            $sender->sendMessage($this->getMessage("§9> §e/gban <Server> <OnlineList>","§9> §e/gban <Server> <OnlineList>"));
+                        }else{
+                            if($sender instanceof Player){
+                                $sender->sendMessage($this->getMessage("§9> §dThis Command Can Use On Console Only","§9> §dこのコマンドはコンソール専用になっています"));
+                                return;
+                            }
+                            $this->getLogger()->notice($this->getMessage("Loading Database...","データベースを読み込み中..."));
+                            $listdata = file_get_contents("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=serverstatus&license=".$this->getLicense());
+                            $this->getLogger()->info("+--------------------- Servers Status--------------------+\n".$this->getMessage($listdata,str_replace(array("STATUS:","SERVER ID:"),array("状況:","サーバーID:"),$listdata)));
+                     
+                             // koradoサーバー | SERVER ID: 8983284613115381 | STATUS: ONLINE
+                     
+                            
+                            $this->getLogger()->info("+--------------------------------------------------------+");
+                        }
+                    break;
+                     */
                         
                     case "cid":
                         if(empty($args[1])){
