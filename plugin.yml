@@ -2,13 +2,22 @@ main: GlobalBan\Main
 api: 1.13.0
 name: GlobalBans
 author: korado531m7
-version: 2.1.0
+version: 3.0.0
 description: Global Banning System Plugin
 commands:
  gban:
   description: Globan Banning Plugin Command
   permission: gban.command
+ chat:
+  description: Chatting Command For Server Owner in GlobalBans Plugin
+  permission: chatting.command
+ chatmute:
+  description: Chat Muting Command For Server Owner in GlobalBans Plugin
+  permission: chatting.command
 permissions:
  gban.command:
+  description: No Description for Permission which this plugin
+  default: op
+ chatting.command:
   description: No Description for Permission which this plugin
   default: op
