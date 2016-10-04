@@ -4,14 +4,14 @@ The Global Banning System for PocketMine
 #Features
 1. Sharing the Banned Data
 2. Powered by many banning type
-3. Server Owner Chatting System (Release in 3.0.0)
+3. Server Owner Chatting System
 
 #Banning Types
 1. Player Name
 2. Player IP Address
 3. Player Client ID
 4. XBox Account (Coming Soon)
-5. Raw Unique ID (Coming Soon)
+5. Raw Unique ID (Coming Soon * Release in 3.1.0)
 
 #Installation Guide
 This Plugin Need an Account for Global Ban Plugin
