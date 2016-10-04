@@ -11,7 +11,7 @@ The Global Banning System for PocketMine
 2. Player IP Address
 3. Player Client ID
 4. XBox Account (Coming Soon)
-5. Raw Unique ID (Coming Soon * Release in 3.0.0)
+5. Raw Unique ID (Coming Soon)
 
 #Installation Guide
 This Plugin Need an Account for Global Ban Plugin
