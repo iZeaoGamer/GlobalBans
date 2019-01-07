@@ -123,7 +123,7 @@ class Main extends PluginBase implements Listener{
         }
     }
 
-    public function onCommand(CommandSender $sender, Command $command,$label, array $args) {
+    public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
         switch($command->getName()){
             case "gban":
                 if(empty($args[0])){
@@ -209,7 +209,7 @@ class Main extends PluginBase implements Listener{
                                     $name = $args[1];
                                     array_shift($args);
                                     array_shift($args);
-                                    Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "cid","value" => $name,"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                    Internet::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "cid","value" => $name,"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
                                     $datum = strtolower($name);
                                 }else{
                                     $sender->sendMessage($this->getMessage("§9> §dCliend ID must be an integer","§9> §dクライアントIDは数字でなければいけません"));
@@ -219,7 +219,7 @@ class Main extends PluginBase implements Listener{
                                 $name = $args[1];
                                 array_shift($args);
                                 array_shift($args);
-                                Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "cid","value" => $this->getServer()->getPlayer($name)->getClientId(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                Internet::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "cid","value" => $this->getServer()->getPlayer($name)->getClientId(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
                                 $datum = $this->getServer()->getPlayer($name)->getClientId();
                                 $this->getServer()->getPlayer($name)->kick($this->config->get("BanMessage"),false);
                             }
@@ -243,9 +243,9 @@ class Main extends PluginBase implements Listener{
                                     array_shift($args);
                                     array_shift($args);
                                     
-                                    Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "cid","value" => $p->getClientId(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
-                                    Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "ip","value" => $p->getAddress(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
-                                    Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "name","value" => $p->getName(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                    Internet::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "cid","value" => $p->getClientId(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                    Internet::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "ip","value" => $p->getAddress(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                    Internet::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "name","value" => $p->getName(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
                                     
                                     if($this->config->get("LinkDefaultBan") == "true"){
                                         $this->getServer()->getIPBans()->addBan($datum, implode(" ",$args), null, "GlobalBan Plugin");
@@ -272,7 +272,7 @@ class Main extends PluginBase implements Listener{
                                     $name = $args[1];
                                     array_shift($args);
                                     array_shift($args);
-                                    Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "ip","value" => $name,"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                    Internet::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "ip","value" => $name,"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
                                 }else{
                                     $sender->sendMessage($this->getMessage("§9> §dType the Correct IP Address","§9> §d正しいIPアドレスを入力してください"));
                                     return;
@@ -282,7 +282,7 @@ class Main extends PluginBase implements Listener{
                                 $name = $args[1];
                                 array_shift($args);
                                 array_shift($args);
-                                Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "ip","value" => $this->getServer()->getPlayer($name)->getAddress(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                Internet::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "ip","value" => $this->getServer()->getPlayer($name)->getAddress(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
                                 $datum = $this->getServer()->getPlayer($name)->getAddress();
                                 $this->getServer()->getPlayer($name)->kick($this->config->get("BanMessage"),false);
                             }
@@ -305,13 +305,13 @@ class Main extends PluginBase implements Listener{
                                 $name = $args[1];
                                 array_shift($args);
                                 array_shift($args);
-                                Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "name","value" => $name,"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                Internet::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "name","value" => $name,"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
                                 $datum = strtolower($name);
                             }else{
                                 $name = $args[1];
                                 array_shift($args);
                                 array_shift($args);
-                                Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "name","value" => $this->getServer()->getPlayer($name)->getName(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
+                                Internet::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=post&license=".$this->getLicense(), ["type" => "name","value" => $this->getServer()->getPlayer($name)->getName(),"servername" => $this->getServer()->getMotd(),"description" => implode(" ",$args),"license" => $this->getLicense()]);
                                 $datum = $this->getServer()->getPlayer($name)->getName();
                                 $this->getServer()->getPlayer($name)->kick($this->config->get("BanMessage"),false);
                             }
@@ -359,7 +359,7 @@ class Main extends PluginBase implements Listener{
                         
                         if($chat->{'active'} == "true"){
                             if($chat->{'status'} == "true"){
-                                Utils::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=chatpost&serverid=".$servid."&license=".$this->getLicense(), ["message" => implode(" ",$args),"name" => $this->getServer()->getMotd(),"license" => $this->getLicense()]);
+                                Internet::postURL("http://korado531m7.php.xdomain.jp/gban/gbansystem.php?sys=chatpost&serverid=".$servid."&license=".$this->getLicense(), ["message" => implode(" ",$args),"name" => $this->getServer()->getMotd(),"license" => $this->getLicense()]);
                                 $sender->sendMessage($this->getMessage("§9> §aChat Sent Successful","§9> §aチャットが送信されました"));
                             }else{
                                 $sender->sendMessage($this->getMessage("§9> §aChat Couldn't Send, Because Partner Is Not Online Now","§9> §aチャット相手はオンラインではないため、送信できませんでした"));
